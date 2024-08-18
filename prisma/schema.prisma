@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// prisma/schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+enum UserRole {
+  ADMIN
+  CUSTOMER
+}
+
+enum OrderStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model User {
+  id          String   @id @default(uuid())
+  clerkUserId String   @unique
+  userName    String   @unique
+  email       String   @unique
+  firstName   String?
+  lastName    String?
+  role        UserRole @default(CUSTOMER)
+  imageUrl    String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orders      Order[]
+}
+
+model Product {
+  id                     String         @id @default(uuid())
+  name                   String
+  description            String
+  price                  Int
+  stock                  Int            @default(0)
+  filePath               String
+  imageUrl               String
+  orders                 OrderProduct[]
+  isAvailableForPurchase Boolean        @default(true)
+  createdAt              DateTime       @default(now())
+  updatedAt              DateTime       @updatedAt
+}
+
+model Order {
+  id          String         @id @default(uuid())
+  personId    String
+  user        User           @relation(fields: [personId], references: [id], onDelete: Cascade)
+  totalAmount Float
+  status      OrderStatus    @default(PENDING)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  products    OrderProduct[]
+}
+
+model OrderProduct {
+  id        String  @id @default(uuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  @@unique([orderId, productId])
+}
