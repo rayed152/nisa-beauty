@@ -5,7 +5,6 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 // import { Clerk } from "@/components/Clerk";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ClerkProvider } from "@clerk/nextjs";
 
 config.autoAddCss = false;
@@ -30,11 +29,9 @@ export default async function RootLayout({
       <html lang="en">
         <body
           className={cn(
-            "min-h-screen bg-background font-sans antialiased",
+            "min-h-screen bg-custom-gradient bg-no-repeat font-sans antialiased",
             fontSans.variable
           )}>
-          {/* <Clerk /> */}
-
           {children}
         </body>
       </html>

@@ -1,5 +1,5 @@
-import { Nav, NavLink } from "@/components/Nav";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { Header } from "@/app/(customerFacing)/_components/Header";
+import { SubHeader } from "./_components/SubHeader";
 
 export const dynamic = "force-dynamic";
 
@@ -10,20 +10,11 @@ export default function Layout({
 }>) {
   return (
     <>
-      <Nav>
-        <NavLink href="/">Home</NavLink>
-        <NavLink href="/products">Products</NavLink>
-        <NavLink href="/orders">My Orders</NavLink>
-        <div className="flex">
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-        </div>
-      </Nav>
-      <div className="container my-6">{children}</div>
+      <div className="container mx-auto h-screen ">
+        <Header />
+        <SubHeader />
+        {children}
+      </div>
     </>
   );
 }
