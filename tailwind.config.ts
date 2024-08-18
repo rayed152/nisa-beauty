@@ -19,7 +19,7 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        "custom-gradient": "linear-gradient(to bottom, #FCDADC, #ffffff)",
+        "custom-gradient": "linear-gradient(to right, #FCDADC, #ffffff)",
       },
       colors: {
         border: "hsl(var(--border))",

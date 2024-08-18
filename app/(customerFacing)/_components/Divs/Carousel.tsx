@@ -34,11 +34,11 @@ export const Carousel = () => {
 
   return (
     <div>
-      <h2 className="text-center text-xl font-bold mt-6 mb-6 text-[#678A46] animate-pulse underline">
+      <h2 className="text-center text-xl font-bold mt-10  text-[#678A46] animate-pulse underline">
         What's New?
       </h2>
       <div className="relative flex justify-center">
-        <div className="relative overflow-hidden mt-4 mb-4 w-[820px] h-[312px]">
+        <div className="relative overflow-hidden mt-4 w-full h-full rounded-3xl">
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
@@ -67,7 +67,7 @@ export const Carousel = () => {
           </button>
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-3">
         {images.map((_, index) => (
           <div
             key={index}
