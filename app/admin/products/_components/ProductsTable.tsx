@@ -29,6 +29,7 @@ const ProductsTable = async () => {
       price: true,
       isAvailableForPurchase: true,
       _count: { select: { orders: true } },
+      category: true,
     },
     orderBy: { name: "asc" },
   });
@@ -43,6 +44,7 @@ const ProductsTable = async () => {
             <span className="sr-only">Abailable For Purchase</span>
           </TableHead>
           <TableHead>Name</TableHead>
+          <TableHead>Category</TableHead>
           <TableHead>Price</TableHead>
           <TableHead>Orders</TableHead>
           <TableHead className="w-0">
@@ -64,6 +66,7 @@ const ProductsTable = async () => {
               )}
             </TableCell>
             <TableCell>{product.name}</TableCell>
+            <TableCell>{product.category}</TableCell>
             <TableCell>{formatCurrency(product.price)} </TableCell>
             <TableCell>{formatNumber(product._count.orders)} </TableCell>
             <TableCell>

@@ -1,8 +1,20 @@
 "use client";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { MdOutlineShoppingBag } from "react-icons/md";
 
 export default function Loading() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!loading) return null;
   const words = ["Welcome", "To", "Nisa", "Beauty!"];
 
   return (

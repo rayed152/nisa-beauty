@@ -4,7 +4,6 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
-// import { Clerk } from "@/components/Clerk";
 import { ClerkProvider } from "@clerk/nextjs";
 
 config.autoAddCss = false;

@@ -17,6 +17,7 @@ const addSchema = z.object({
   price: z.coerce.number().int().min(1),
   file: fileSchema.refine((file) => file.size > 0, "Required"),
   image: imageSchema.refine((file) => file.size > 0, "Required"),
+  category: z.string().min(1),
 });
 
 export async function addProduct(prevState: unknown, formData: FormData) {
@@ -49,6 +50,7 @@ export async function addProduct(prevState: unknown, formData: FormData) {
         price: data.price,
         filePath,
         imageUrl,
+        category: data.category,
       },
     });
 
@@ -106,6 +108,7 @@ export async function updateProduct(
       price: data.price,
       filePath,
       imageUrl,
+      category: data.category,
     },
   });
 

@@ -10,12 +10,25 @@ import { useFormState, useFormStatus } from "react-dom";
 import { Product } from "@prisma/client";
 import Image from "next/image";
 
+const categories = [
+  "Phone",
+  "Laptop",
+  "Headphone",
+  "Camera",
+  "Accessory",
+  "Other",
+];
+
 const ProductForm = ({ product }: { product?: Product | null }) => {
   const [error, action] = useFormState(
     product == null ? addProduct : updateProduct.bind(null, product.id),
     {}
   );
   const [price, setPrice] = useState<number | undefined>(product?.price);
+  const [category, setCategory] = useState<string>(
+    product?.category || categories[0]
+  );
+
   return (
     <form action={action} className="space-y-8">
       <div className="space-y-2">
@@ -30,7 +43,7 @@ const ProductForm = ({ product }: { product?: Product | null }) => {
         {error.name && <div className="text-destructive">{error.name}</div>}
       </div>
       <div className="space-y-2">
-        <Label htmlFor="name">Price in Taka</Label>
+        <Label htmlFor="price">Price in Taka</Label>
         <Input
           type="number"
           id="price"
@@ -44,6 +57,7 @@ const ProductForm = ({ product }: { product?: Product | null }) => {
         </div>
         {error.price && <div className="text-destructive">{error.price}</div>}
       </div>
+
       <div className="space-y-2">
         <Label htmlFor="description">Description</Label>
         <Textarea
@@ -54,6 +68,25 @@ const ProductForm = ({ product }: { product?: Product | null }) => {
         />
         {error.description && (
           <div className="text-destructive">{error.description}</div>
+        )}
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="category">Category</Label>
+        <select
+          id="category"
+          name="category"
+          required
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+        {error.category && (
+          <div className="text-destructive">{error.category}</div>
         )}
       </div>
       <div className="space-y-2">
@@ -77,14 +110,14 @@ const ProductForm = ({ product }: { product?: Product | null }) => {
         )}
         {error.image && <div className="text-destructive">{error.image}</div>}
       </div>
-      <SubtmitButton />
+      <SubmitButton />
     </form>
   );
 };
 
 export default ProductForm;
 
-export function SubtmitButton() {
+export function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" disabled={pending}>
